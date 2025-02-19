@@ -2,7 +2,7 @@ version: '3.8'  # Specify the Docker Compose version
 
 services:
   backend-flask:
-    image: shrinetdhruv/lms-backend  #sername
+    image: shrinetdhruv/lms-backend  #serme
     ports:
       - "4000:4000"
     environment:
