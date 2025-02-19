@@ -2,7 +2,7 @@ version: '3.8'  # Specify the Docker Compose version
 
 services:
   backend-flask:
-    image: shrinetdhruv/lms-backend  # Replace with your Docker Hub username
+    image: shrinetdhruv/lms-backend  #sername
     ports:
       - "4000:4000"
     environment:
