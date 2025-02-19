@@ -1,0 +1,25 @@
+version: '3.8'  # Specify the Docker Compose version
+
+services:
+  backend-flask:
+    image: shrinetdhruv/lms-backend  # Replace with your Docker Hub username
+    ports:
+      - "4000:4000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+    networks:
+      - app-network
+
+  frontend:
+    image: shrinetdhruv/lms-frontend  # Replace with your Docker Hub username
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-flask
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
