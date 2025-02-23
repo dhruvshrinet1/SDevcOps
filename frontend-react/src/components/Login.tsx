@@ -22,7 +22,8 @@ const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => {
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundImage: "url('/uniofgalway.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="max-w-md w-full p-8 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Welcome Back 24237070</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Welcome Back </h2>
+        <p>Developed by [Dhruv Shrinet] - Reg#: [24237070]</p>
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
             {error}
@@ -62,6 +63,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => {
             className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Login Page
+     
           </button>
         </form>
         <div className="mt-6 text-center">
@@ -71,6 +73,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => {
           >
             New student? Register here
           </button>
+          
         </div>
       </div>
     </div>
