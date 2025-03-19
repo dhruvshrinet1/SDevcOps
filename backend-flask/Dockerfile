@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 RUN echo "[newrelic]" > newrelic.ini && \
-echo "license_key = $NEW_RELIC_LICENSE_KEY" >> newrelic.ini && \
+echo "license_key = eu01xxb105a130af05b34fe65c0574a2FFFFNRAL" >> newrelic.ini && \
 echo "app_name = LMS System - Backend" >> newrelic.ini && \
 echo "monitor_mode = true" >> newrelic.ini && \
 echo "log_level = info" >> newrelic.ini && \
