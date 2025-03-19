@@ -10,8 +10,6 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import pickle
 import newrelic.agent
-app = Flask(__name__)
-CORS(app)
 
 try:
     newrelic.agent.initialize(
