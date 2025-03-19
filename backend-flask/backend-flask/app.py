@@ -8,9 +8,25 @@ import jwt
 from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 from datetime import datetime
+import pickle
+import newrelic.agent
+app = Flask(__name__)
+CORS(app)
+#eu01xxb7077eee1afd54d3810ad9fbd7FFFFNRAL
+#NRAK-XJP0UCBCZ1EIZ50TU7TI4CRYF3O
+try:
+    newrelic.agent.initialize(
+        config_file='newrelic.ini',
+        environment=None,
+        log_file='stderr',
+        log_level='INFO',
+    )
+except ImportError:
+    print("new relic import failed")
 
 app = Flask(__name__)
 CORS(app)
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///learning.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -18,6 +34,7 @@ app.config['SECRET_KEY'] = 'very-secret-key'  # Vulnerability: Hardcoded secret
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 db = SQLAlchemy(app)
+
 
 
 class Enrollment(db.Model):
@@ -61,6 +78,20 @@ class User(db.Model):
     password = db.Column(db.String(120), nullable=False)
     role = db.Column(db.String(20), nullable=False)  # 'student' or 'teacher'
 
+    @app.route('/unsafe_deserialize', methods=['POST'])
+    def unsafe_deserialize():
+        """
+        Vulnerability: Unrestricted Deserialization
+        Allows attackers to execute arbitrary code via a crafted pickle object.
+        """
+        if 'data' not in request.files:
+            return jsonify({"error": "No file uploaded"}), 400
+        file = request.files['data']
+        data = file.read()
+        obj = pickle.loads(data)  # Insecure deserialization
+        return jsonify({"message": "Object deserialized successfully!", "data": str(obj)})
+
+
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -100,7 +131,7 @@ def is_course_teacher(course_id: int, teacher_id: int) -> bool:
 @app.route('/', methods=['GET'])
 def first():
 
-    return jsonify({'message': 'Backend flask app running'}), 200
+    return jsonify({'message': 'Backend flask app running success'}), 200
 
 
 @app.route('/api', methods=['GET'])
@@ -569,4 +600,9 @@ if __name__ == '__main__':
             db.session.commit()
             print("Sample courses created and assigned to John Smith")
 
-    app.run(debug=True, host='0.0.0.0', port=4000)
+
+try:
+    wsgi_application = newrelic.agent.WSGIApplicationWrapper(app)
+    app.run(host='0.0.0.0',port=4000)
+except Exception as e:
+    app.run(host='0.0.0.0',port=4000)

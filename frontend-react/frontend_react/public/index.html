@@ -29,6 +29,24 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <script>
+      document.write("<img src='x' onerror='alert(\"XSS Attack!\")'>");
+    </script>
+
+    <!-- XSS Vulnerability for ZAP Detection -->
+<form action="#" method="GET">
+  <input type="text" name="user_input" placeholder="Enter text">
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const userInput = urlParams.get('user_input');
+  if (userInput) {
+    document.write("User Input: " + userInput);
+  }
+</script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
