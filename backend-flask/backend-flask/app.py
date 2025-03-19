@@ -12,8 +12,7 @@ import pickle
 import newrelic.agent
 app = Flask(__name__)
 CORS(app)
-#eu01xxb7077eee1afd54d3810ad9fbd7FFFFNRAL
-#NRAK-XJP0UCBCZ1EIZ50TU7TI4CRYF3O
+
 try:
     newrelic.agent.initialize(
         config_file='newrelic.ini',
