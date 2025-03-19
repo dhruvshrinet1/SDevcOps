@@ -2,17 +2,20 @@ version: '3.8'  # Specify the Docker Compose version
 
 services:
   backend-flask:
-    image: shrinetdhruv/lms-backend  #serme
+    image: shrinetdhruv/lms-backend:2.0.0  # Replace with your actual image name
     ports:
       - "4000:4000"
     environment:
       - FLASK_ENV=development
       - FLASK_APP=app.py
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - NEW_RELIC_APP_NAME="${NEW_RELIC_APP_NAME:-LMS System Backend}"
+      - NEW_RELIC_ENVIRONMENT="${NEW_RELIC_ENVIRONMENT:-production}"
     networks:
       - app-network
 
   frontend:
-    image: shrinetdhruv/lms-frontend  # Replace with your Docker Hub username
+    image: shrinetdhruv/lms-frontend:2.0.0  # Replace with your actual image name
     ports:
       - "80:80"
     depends_on:
